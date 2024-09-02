@@ -1,0 +1,38 @@
+
+.survey-page.data-v-a70bcdb3 {
+		padding: 20rpx;
+		background-color: #f7f7f7;
+}
+.survey-questions.data-v-a70bcdb3 {
+		margin-bottom: 30rpx;
+}
+.survey-questions .wd-textarea.data-v-a70bcdb3 {
+		border: 1px solid #F6F8FA;
+		border-radius: 20rpx;
+}
+.question.data-v-a70bcdb3 {
+		background-color: #ffffff;
+		border-radius: 10rpx;
+		padding: 20rpx;
+		margin-bottom: 20rpx;
+}
+.question-title.data-v-a70bcdb3 {
+		font-size: 30rpx;
+		font-weight: bold;
+		margin-bottom: 15rpx;
+}
+.radio-option.data-v-a70bcdb3,
+	.checkbox-option.data-v-a70bcdb3 {
+		display: block;
+		margin-bottom: 10rpx;
+}
+.submit-button.data-v-a70bcdb3 {
+		background-color: #55B89A;
+		color: #ffffff;
+		border-radius: 50rpx;
+		height: 80rpx;
+		line-height: 80rpx;
+		text-align: center;
+		font-size: 30rpx;
+		width: 100%;
+}

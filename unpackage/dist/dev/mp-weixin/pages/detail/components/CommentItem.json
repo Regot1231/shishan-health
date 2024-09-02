@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation": "shared",
+  "usingComponents": {
+    "wd-icon": "../../../node-modules/wot-design-uni/components/wd-icon/wd-icon",
+    "sub-comment-item": "./SubCommentItem"
+  }
+}

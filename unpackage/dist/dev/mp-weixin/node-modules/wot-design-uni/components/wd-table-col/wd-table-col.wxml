@@ -1,0 +1,1 @@
+<view class="{{['data-v-cdddaf22', d]}}" style="{{e}}"><view wx:for="{{a}}" wx:for-item="row" wx:key="f" class="{{['data-v-cdddaf22', row.e]}}" style="{{c}}" bindtap="{{row.g}}"><slot wx:if="{{b}}" name="{{row.a}}"></slot><text wx:else class="{{['data-v-cdddaf22', row.d]}}">{{row.c}}</text></view></view>

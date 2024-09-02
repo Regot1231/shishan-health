@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "我的转发",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "nav-bar": "../../../components/NavBar"
+  }
+}

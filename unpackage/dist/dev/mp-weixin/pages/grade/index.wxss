@@ -1,0 +1,15 @@
+
+	/* 页面整体样式 */
+.score-share-page.data-v-72ac6b71 {
+		background-color: #f7f7f7;
+		padding: 20rpx;
+}
+
+	/* 顶部banner */
+.top-banner.data-v-72ac6b71 {
+		position: relative;
+		z-index: 20;
+		margin-top: 20%;
+		width: 100%;
+		margin-bottom: 20rpx;
+}

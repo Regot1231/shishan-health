@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation": "shared",
+  "usingComponents": {
+    "wd-sort-button": "../wd-sort-button/wd-sort-button",
+    "wd-table-col": "../wd-table-col/wd-table-col"
+  }
+}

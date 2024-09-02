@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "wd-icon": "../../node-modules/wot-design-uni/components/wd-icon/wd-icon",
+    "comment-item": "./components/CommentItem",
+    "nav-bar": "../../components/NavBar",
+    "article-section": "../../components/ArticleSection"
+  }
+}

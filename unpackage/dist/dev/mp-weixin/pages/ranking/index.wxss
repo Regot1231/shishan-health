@@ -1,0 +1,101 @@
+
+.container.data-v-55d17871 {
+		padding: 0 20px;
+		margin-top: 5%;
+		position: relative;
+}
+.time-selector.data-v-55d17871 {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 20px;
+}
+.time-selector .ranking-text.data-v-55d17871 {
+		color: #ffffff;
+		font-size: 26px;
+		text-align: center;
+		font-weight: bold;
+}
+.time-selector .time.data-v-55d17871 {
+		background-color: #ffffff;
+		border-radius: 45rpx;
+		display: flex;
+}
+.category-selector.data-v-55d17871 {
+		font-size: 20px;
+		display: flex;
+		justify-content: space-around;
+		margin-bottom: 20px;
+		background-color: #ffffff;
+		border-radius: 15rpx;
+}
+.time-selector text.data-v-55d17871 {
+		padding: 8px 17px;
+		border-radius: 20px;
+		border: 3px solid white;
+		color: #777777;
+}
+.category-selector text.data-v-55d17871 {
+		padding: 10px 40px;
+		border-radius: 10px;
+		border: 3px solid white;
+		color: #777777;
+}
+.time-selector text.active.data-v-55d17871,
+	.category-selector text.active.data-v-55d17871 {
+		background-color: #55B89A;
+		color: white;
+}
+.ranking-list.data-v-55d17871 {
+		border-radius: 10px;
+		padding: 10px;
+}
+.ranking-item.data-v-55d17871 {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px 0;
+		border: 1px solid #ddd;
+		margin-bottom: 40rpx;
+		border-radius: 30rpx;
+		background-color: #FFFFFF;
+}
+.ranking-item.data-v-55d17871:first-child {
+				box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+}
+.left-content.data-v-55d17871 {
+		display: flex;
+		align-items: center;
+}
+.rank-text.data-v-55d17871 {
+		margin-left: 35rpx;
+		font-size: 20px;
+}
+.medal.data-v-55d17871 {
+		width: 50px;
+		height: 40px;
+		margin-right: 20rpx;
+}
+.avatar.data-v-55d17871 {
+		width: 50px;
+		height: 50px;
+		margin-right: 20rpx;
+		border-radius: 50%;
+}
+.name.data-v-55d17871 {
+		font-size: 20px;
+}
+.score.data-v-55d17871 {
+		font-size: 20px;
+		margin-right: 10rpx;
+}
+
+	/* 背景渐变样式 */
+.first-place.data-v-55d17871 {
+		background: linear-gradient(to right, #f6d365, #fda085);
+}
+.second-place.data-v-55d17871 {
+		background: linear-gradient(to right, #cfd9df, #e2ebf0);
+}
+.third-place.data-v-55d17871 {
+		background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+}

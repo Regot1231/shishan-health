@@ -1,0 +1,1 @@
+<view class="item-container data-v-6a4445b6"><image src="{{a}}" class="item-image data-v-6a4445b6"/><view class="item-content data-v-6a4445b6"><text class="item-title data-v-6a4445b6">{{b}}</text><text class="item-description data-v-6a4445b6">{{c}}</text><button class="view-button data-v-6a4445b6" bindtap="{{d}}">立即查看</button></view></view>

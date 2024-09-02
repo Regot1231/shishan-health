@@ -1,0 +1,1 @@
+<custom-navbar wx:if="{{a}}" class="data-v-72ac6b71" u-i="72ac6b71-0" bind:__l="__l" u-p="{{a}}"/><view class="score-share-page data-v-72ac6b71"><image class="top-banner data-v-72ac6b71" src="{{b}}" mode="widthFix"/><score-share-component wx:if="{{c}}" class="data-v-72ac6b71" u-i="72ac6b71-1" bind:__l="__l" u-p="{{c}}"/></view>

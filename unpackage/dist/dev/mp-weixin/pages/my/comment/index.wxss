@@ -1,0 +1,26 @@
+
+.science-container.data-v-2a78c890 {
+		padding: 16px;
+		background-color: #f5f7fa;
+}
+.comment-card.data-v-2a78c890 {
+		margin-bottom: 16px;
+		border-radius: 20px;
+		background-color: #ffffff;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+.footer-button.data-v-2a78c890 {
+		color: #fff;
+		border-radius: 4px;
+		padding: 4px 8px;
+		font-size: 14px;
+}
+.comment-card .view-button.data-v-2a78c890 {
+		padding: 0px 15px;
+		margin-left: 60%;
+		border-radius: 40rpx;
+		border: 1px solid #68B69A;
+		color: #68B69A;
+		background-color: #f5fff5;
+		font-size: 12px;
+}

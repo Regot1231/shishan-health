@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "运动记录",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "wd-table-col": "../../../node-modules/wot-design-uni/components/wd-table-col/wd-table-col",
+    "wd-table": "../../../node-modules/wot-design-uni/components/wd-table/wd-table",
+    "nav-bar": "../../../components/NavBar"
+  }
+}

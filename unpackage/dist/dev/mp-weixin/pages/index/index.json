@@ -1,0 +1,9 @@
+{
+  "navigationStyle": "custom",
+  "navigationBarTitleText": "首页",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-navbar": "../../components/CustomNavbar",
+    "home-content": "./components/HomeContent"
+  }
+}

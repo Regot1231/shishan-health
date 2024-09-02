@@ -1,0 +1,94 @@
+/* 水平间距 */
+/* 水平间距 */
+.content.data-v-2ba5beff {
+  float: left;
+  width: 100%;
+  height: 1000rpx;
+  margin-top: 200rpx;
+}
+.my-info.data-v-2ba5beff {
+  display: flex;
+  padding: 20rpx;
+}
+.my-info .avatar.data-v-2ba5beff {
+  width: 140rpx;
+  height: 140rpx;
+  margin-right: 20rpx;
+}
+.my-info .info.data-v-2ba5beff {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  margin-left: 5rpx;
+}
+.my-info .info .name.data-v-2ba5beff {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+.my-info .info .account.data-v-2ba5beff {
+  font-size: 28rpx;
+}
+.my-score.data-v-2ba5beff {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 36rpx 0;
+  width: 680rpx;
+  border-radius: 26rpx;
+  background-color: #fff;
+}
+.my-score .diversion.data-v-2ba5beff {
+  width: 2rpx;
+  height: 80rpx;
+  background-color: #f0f0f0;
+}
+.my-score .history.data-v-2ba5beff, .my-score .score.data-v-2ba5beff {
+  display: flex;
+  width: 320rpx;
+  align-items: center;
+  justify-content: center;
+}
+.my-score .history .score-label.data-v-2ba5beff, .my-score .score .score-label.data-v-2ba5beff {
+  color: #333;
+  font-size: 32rpx;
+  line-height: 30rpx;
+  height: 30rpx;
+}
+.my-score .icon.data-v-2ba5beff {
+  margin-right: 30rpx;
+}
+.my-function.data-v-2ba5beff {
+  width: 680rpx;
+  margin: 0 auto;
+  padding: 20rpx;
+  margin-top: 30rpx;
+  border-radius: 20rpx;
+  color: #333;
+  background-color: #FFFFFF;
+}
+.my-function .title.data-v-2ba5beff {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+.my-function .function-item.data-v-2ba5beff {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #FFFFFF;
+  margin: 70rpx 0;
+}
+.my-function .function-item .function-label.data-v-2ba5beff {
+  font-size: 32rpx;
+  color: #333;
+  margin-left: 20rpx;
+  height: 40rpx;
+  line-height: 34rpx;
+  flex-grow: 1;
+}
+.my-function .function-item image.data-v-2ba5beff {
+  width: 40rpx;
+  height: 40rpx;
+}

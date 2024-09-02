@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "打卡分享",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "custom-navbar": "../../components/CustomNavbar",
+    "score-share-component": "../../components/ScoreShareComponent"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "styleIsolation": "shared",
+  "usingComponents": {
+    "l-circle": "../uni_modules/lime-circle/components/l-circle/l-circle",
+    "cc-popup": "../uni_modules/cc-popup/components/cc-popup/cc-popup"
+  }
+}

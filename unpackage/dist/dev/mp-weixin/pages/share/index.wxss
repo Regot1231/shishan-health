@@ -1,0 +1,19 @@
+/* 水平间距 */
+/* 水平间距 */
+.content.data-v-553f1739 {
+  overflow: hidden;
+  margin-top: 400rpx;
+  background-color: #F6F8FA;
+  border-radius: 60rpx;
+  padding: 15px;
+}
+.content .content-separation.data-v-553f1739 {
+  height: 50rpx;
+  margin-top: -20rpx;
+}
+.content .footer.data-v-553f1739 {
+  height: 120rpx;
+}
+.page.data-v-553f1739 {
+  transition: filter 0.3s ease;
+}

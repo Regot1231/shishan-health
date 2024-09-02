@@ -1,0 +1,11 @@
+
+.science-container.data-v-57167105 {
+		padding: 15px;
+		background-color: #ffffff;
+		overflow-y: scroll;
+		scroll-padding-bottom: 100px;
+		/* 与底部评论区高度相等 */
+}
+.page.data-v-57167105 {
+		transition: filter 0.3s ease;
+}

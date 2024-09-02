@@ -1,0 +1,22 @@
+
+.nav-bar.data-v-2202255b {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(env(safe-area-inset-top) + 70px) 15px 10px 15px;
+  background-color: #55b89a; /* 调整为你的应用主题色 */
+}
+.nav-bar-left.data-v-2202255b,
+.nav-bar-right.data-v-2202255b {
+  flex: 0 0 auto;
+}
+.nav-bar-title.data-v-2202255b {
+  flex: 1 1 auto;
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}
+.nav-icon.data-v-2202255b {
+  width: 24px;
+  height: 24px;
+}

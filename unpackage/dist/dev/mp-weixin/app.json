@@ -1,0 +1,118 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/register/index",
+    "pages/index/index",
+    "pages/detail/index",
+    "pages/sport/index",
+    "pages/sport/runningRecords/index",
+    "pages/my/comment/index",
+    "pages/my/forward/index",
+    "pages/my/collection/index",
+    "pages/my/settings/index",
+    "pages/my/settings/aboutUs",
+    "pages/my/settings/changePassword",
+    "pages/my/my",
+    "pages/question/index",
+    "pages/ranking/index",
+    "pages/grade/index",
+    "pages/share/index",
+    "pages/science/index",
+    "pages/history/index"
+  ],
+  "usingComponents": {
+    "van-action-sheet": "/wxcomponents/dist/action-sheet/index",
+    "van-area": "/wxcomponents/dist/area/index",
+    "van-button": "/wxcomponents/dist/button/index",
+    "van-card": "/wxcomponents/dist/card/index",
+    "van-cell": "/wxcomponents/dist/cell/index",
+    "van-cell-group": "/wxcomponents/dist/cell-group/index",
+    "van-checkbox": "/wxcomponents/dist/checkbox/index",
+    "van-checkbox-group": "/wxcomponents/dist/checkbox-group/index",
+    "van-col": "/wxcomponents/dist/col/index",
+    "van-dialog": "/wxcomponents/dist/dialog/index",
+    "van-field": "/wxcomponents/dist/field/index",
+    "van-goods-action": "/wxcomponents/dist/goods-action/index",
+    "van-goods-action-icon": "/wxcomponents/dist/goods-action-icon/index",
+    "van-goods-action-button": "/wxcomponents/dist/goods-action-button/index",
+    "van-icon": "/wxcomponents/dist/icon/index",
+    "van-loading": "/wxcomponents/dist/loading/index",
+    "van-nav-bar": "/wxcomponents/dist/nav-bar/index",
+    "van-notice-bar": "/wxcomponents/dist/notice-bar/index",
+    "van-notify": "/wxcomponents/dist/notify/index",
+    "van-panel": "/wxcomponents/dist/panel/index",
+    "van-popup": "/wxcomponents/dist/popup/index",
+    "van-progress": "/wxcomponents/dist/progress/index",
+    "van-radio": "/wxcomponents/dist/radio/index",
+    "van-radio-group": "/wxcomponents/dist/radio-group/index",
+    "van-row": "/wxcomponents/dist/row/index",
+    "van-search": "/wxcomponents/dist/search/index",
+    "van-slider": "/wxcomponents/dist/slider/index",
+    "van-stepper": "/wxcomponents/dist/stepper/index",
+    "van-steps": "/wxcomponents/dist/steps/index",
+    "van-submit-bar": "/wxcomponents/dist/submit-bar/index",
+    "van-swipe-cell": "/wxcomponents/dist/swipe-cell/index",
+    "van-switch": "/wxcomponents/dist/switch/index",
+    "van-tab": "/wxcomponents/dist/tab/index",
+    "van-tabs": "/wxcomponents/dist/tabs/index",
+    "van-tabbar": "/wxcomponents/dist/tabbar/index",
+    "van-tabbar-item": "/wxcomponents/dist/tabbar-item/index",
+    "van-tag": "/wxcomponents/dist/tag/index",
+    "van-toast": "/wxcomponents/dist/toast/index",
+    "van-transition": "/wxcomponents/dist/transition/index",
+    "van-tree-select": "/wxcomponents/dist/tree-select/index",
+    "van-datetime-picker": "/wxcomponents/dist/datetime-picker/index",
+    "van-rate": "/wxcomponents/dist/rate/index",
+    "van-collapse": "/wxcomponents/dist/collapse/index",
+    "van-collapse-item": "/wxcomponents/dist/collapse-item/index",
+    "van-picker": "/wxcomponents/dist/picker/index",
+    "van-circle": "/wxcomponents/dist/circle/index",
+    "tab-bar": "/components/CustomTabBar"
+  },
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#2c2c2c",
+    "selectedColor": "#55B89A",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index"
+      },
+      {
+        "text": "科普",
+        "pagePath": "pages/science/index"
+      },
+      {
+        "text": "分享",
+        "pagePath": "pages/share/index"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/my/my"
+      }
+    ]
+  },
+  "component2": true,
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序内相关功能"
+    },
+    "scope.werun": {
+      "desc": "获取你的微信运动步数，用于健康记录"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "startLocationUpdate",
+    "onLocationChange"
+  ]
+}

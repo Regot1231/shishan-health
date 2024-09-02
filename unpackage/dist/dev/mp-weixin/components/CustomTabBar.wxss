@@ -1,0 +1,69 @@
+/* 水平间距 */
+/* 水平间距 */
+.tabBar.data-v-6def6a3b {
+  z-index: 100;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  font-size: 28rpx;
+  background-color: #fff;
+  color: #636363;
+  border-radius: 50rpx 50rpx 0px 0px;
+  box-shadow: 0px -2rpx 10rpx 0px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+.cont.data-v-6def6a3b {
+  z-index: 0;
+  height: calc(110rpx + env(safe-area-inset-bottom) / 2);
+  padding-bottom: 70rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.cont .item.data-v-6def6a3b {
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 1;
+  padding-top: 10rpx;
+}
+.cont .txt.data-v-6def6a3b {
+  margin-top: 20rpx;
+}
+.cont .on.data-v-6def6a3b {
+  position: relative;
+}
+.cont .search.data-v-6def6a3b {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: -70rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.cont .search image.data-v-6def6a3b {
+  width: 150rpx !important;
+  height: 150rpx !important;
+  z-index: 2;
+  border-radius: 100%;
+}
+.cont .search .txt.data-v-6def6a3b {
+  margin-top: 26rpx;
+}
+.cont .selectedColor.data-v-6def6a3b {
+  color: #55b89a;
+}
+.way-container.data-v-6def6a3b {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  position: absolute;
+  bottom: 160rpx;
+}
+.way-container image.data-v-6def6a3b {
+  width: 100rpx;
+  height: 100rpx;
+}
+.way-container .sport.data-v-6def6a3b {
+  margin-right: 150rpx;
+}

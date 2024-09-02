@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "科普",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "article-section": "../../components/ArticleSection",
+    "nav-bar": "../../components/NavBar"
+  }
+}

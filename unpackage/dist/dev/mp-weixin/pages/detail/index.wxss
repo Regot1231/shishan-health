@@ -1,0 +1,94 @@
+
+.detail-container.data-v-2fd5b0a7 {
+			padding: 15px;
+			background-color: #ffffff;
+			height: 80vh;
+			overflow-y: scroll;
+			scroll-padding-bottom: 100px;
+			/* 与底部评论区高度相等 */
+}
+.comments-section.data-v-2fd5b0a7 {
+			margin-top: 20px;
+}
+.comments-section .comments-top.data-v-2fd5b0a7 {
+			display: flex;
+			justify-content: space-between;
+}
+.comments-title.data-v-2fd5b0a7 {
+			font-size: 20px;
+			font-weight: bold;
+}
+.comments-top .comments-news.data-v-2fd5b0a7 {
+			font-size: 14px;
+			display: flex;
+			align-items: center;
+}
+.comments-top .comments-news .separator.data-v-2fd5b0a7 {
+			width: 1px;
+			height: 25rpx;
+			background-color: #777777;
+			margin: 0 10rpx;
+}
+.comment-input.data-v-2fd5b0a7 {
+			display: flex;
+			justify-content: space-between;
+			padding: 10px;
+			border-top: 1px solid #ddd;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			background-color: #ffffff;
+}
+.comment-bar.data-v-2fd5b0a7 {
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+			display: flex;
+			align-items: flex-start;
+			padding: 10px 15px;
+			background-color: white;
+			border-top: 1px solid #ddd;
+			border-radius: 60rpx 60rpx 0rpx 0rpx;
+			height: 200rpx;
+			box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+}
+.input-box.data-v-2fd5b0a7 {
+			flex: 1;
+			background-color: #f6f8fa;
+			border-radius: 20px;
+			padding: 8px 15px;
+			margin-right: 10px;
+}
+.input-box input.data-v-2fd5b0a7 {
+			border: none;
+			outline: none;
+			width: 100%;
+			font-size: 14px;
+			color: #888;
+}
+.icons.data-v-2fd5b0a7 {
+			display: flex;
+			align-items: center;
+}
+.icons .comment-icon.data-v-2fd5b0a7,
+		.icons .like-icon.data-v-2fd5b0a7 {
+			display: flex;
+			align-items: center;
+			margin-left: 15px;
+			position: relative;
+}
+.icons image.data-v-2fd5b0a7 {
+			width: 25px;
+			height: 25px;
+}
+.icons .count.data-v-2fd5b0a7 {
+			font-size: 12px;
+			color: #ff3b30;
+			background-color: #fff;
+			border-radius: 50%;
+			padding: 2px 5px;
+			position: absolute;
+			top: -10px;
+			right: -10px;
+}
+	

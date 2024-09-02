@@ -1,0 +1,142 @@
+
+	/* 评分区域 */
+.score-section.data-v-f64ed29c {
+		background-color: #ffffff;
+		border-radius: 20rpx;
+		padding: 40rpx;
+		margin-bottom: 40rpx;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+.title.data-v-f64ed29c {
+		font-size: 40rpx;
+		font-weight: bold;
+		margin-bottom: 10rpx;
+}
+.description.data-v-f64ed29c {
+		font-size: 28rpx;
+		color: #999;
+		margin-bottom: 30rpx;
+}
+	
+	/* 圆环样式 */
+.circle.data-v-f64ed29c {
+		width: 450rpx;
+		height: 450rpx;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid #F0F0F0;
+}
+.score.data-v-f64ed29c {
+		font-size: 60rpx;
+		color: #33cc99;
+		font-weight: bold;
+}
+	
+	/* 按钮组 */
+.button-group.data-v-f64ed29c {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
+.share-button.data-v-f64ed29c,
+	.back-button.data-v-f64ed29c {
+		width: 100%;
+		height: 100rpx;
+		line-height: 100rpx;
+		border-radius: 30rpx;
+		text-align: center;
+		font-size: 35rpx;
+		margin-bottom: 20rpx;
+}
+.share-button.data-v-f64ed29c {
+		background-color: #55B89A;
+		color: #ffffff;
+}
+.back-button.data-v-f64ed29c {
+		background-color: #ffffff;
+		border: 2rpx solid #cccccc;
+		color: #333333;
+}
+.custom-text.data-v-f64ed29c {
+		margin-top: 35%;
+		font-size: 50px;
+		color: #55B89A;
+}
+.custom-font.data-v-f64ed29c {
+		font-size: 16px;
+		color: #55B89A;
+}
+.circle-content.data-v-f64ed29c {
+		display: flex;
+		justify-content: center;
+		align-items: flex-end;
+}
+.step-number.data-v-f64ed29c {
+		font-size: 40px;
+		/* 数字的字体大小，可以根据需要调整 */
+		font-weight: bold;
+		color: #55B89A;
+}
+.bottom-text.data-v-f64ed29c {
+		font-size: 18px;
+		/* 文字的字体大小，可以根据需要调整 */
+		margin-left: 1px;
+		/* 数字和文字之间的间距 */
+		color: #55B89A;
+}
+.content.data-v-f64ed29c {
+	        display: flex;
+	        flex-direction: column;
+}
+.popUpBtn.data-v-f64ed29c {
+	        height: 80rpx;
+	        line-height: 80rpx;
+	        width: 320rpx;
+	        margin-top: 120rpx;
+	        margin-left: auto;
+	        margin-right: auto;
+	        margin-bottom: 50rpx;
+	        background-color: bisque;
+	        text-align: center;
+}
+.modelContent.data-v-f64ed29c {
+	        width: 100%;
+	        height: 100%;
+	        display: flex;
+	        align-items: center;
+	        flex-direction: column;
+}
+.titleV.data-v-f64ed29c {
+	
+	        width: 100%;
+	        height: 36px;
+	        line-height: 30px;
+	        font-weight: 550;
+	        text-align: center;
+	        margin-top: 8px;
+	        font-size: 17px;
+	        border-bottom: 1px solid #F1F1F1;
+}
+.imageV.data-v-f64ed29c {
+	
+	        margin-top: 0px;
+	        width: calc(100vw - 100px);
+	        height: calc((100vw - 100px) * 0.567);
+}
+.close.data-v-f64ed29c {
+	        width: 60rpx;
+	        height: 60rpx;
+	        color: #FFFFFF;
+	        line-height: 60rpx;
+	        text-align: center;
+	        border-radius: 50%;
+	        border: 1px solid #FFFFFF;
+	        position: relative;
+	        bottom: -10%;
+	        left: 50%;
+	        transform: translate(-50%, -50%);
+}

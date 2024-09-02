@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "运动",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "wd-icon": "../../node-modules/wot-design-uni/components/wd-icon/wd-icon"
+  }
+}

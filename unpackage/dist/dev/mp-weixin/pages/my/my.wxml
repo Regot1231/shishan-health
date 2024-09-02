@@ -1,0 +1,1 @@
+<view class="page data-v-2f1ef635" style="{{'filter:' + b}}"><custom-navbar wx:if="{{a}}" class="data-v-2f1ef635" u-i="2f1ef635-0" bind:__l="__l" u-p="{{a}}"/><mycontent class="data-v-2f1ef635" u-i="2f1ef635-1" bind:__l="__l"/></view><tab-bar wx:if="{{d}}" class="data-v-2f1ef635" bindchooseWay="{{c}}" u-i="2f1ef635-2" bind:__l="__l" u-p="{{d}}"/>

@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../../common/vendor.js");
+const api_user = require("../../../api/user.js");
 if (!Math) {
   NavBar();
 }
@@ -13,7 +14,12 @@ const _sfc_main = {
     const handleBack = () => {
       common_vendor.index.navigateBack();
     };
-    const handleChangePassword = () => {
+    const handleChangePassword = async () => {
+      const userInfo = common_vendor.index.getStorageSync("userInfo");
+      const data = {
+        userId: userInfo.userId,
+        password: newPassword.value
+      };
       if (newPassword.value !== confirmPassword.value) {
         common_vendor.index.showToast({
           title: "新密码与确认密码不一致",
@@ -21,10 +27,18 @@ const _sfc_main = {
         });
         return;
       }
-      common_vendor.index.showToast({
-        title: "密码已修改",
-        icon: "success"
-      });
+      const res = await api_user.putUserInfo(data);
+      if (res.code === 200) {
+        common_vendor.index.showToast({
+          title: "密码已修改",
+          icon: "success"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "修改密码失败",
+          icon: "error"
+        });
+      }
     };
     return (_ctx, _cache) => {
       return {

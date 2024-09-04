@@ -11,7 +11,7 @@
         
         <view class="section-title">联系我们:</view>
         <text class="section-content">如果你有任何问题，请通过以下方式联系我们：</text>
-        <text class="contact-info">邮箱: support@example.com</text>
+        <text class="contact-info">邮箱: 2960031355@qq.com</text>
         <text class="contact-info">电话: 123-456-7890</text>
       </view>
     </view>

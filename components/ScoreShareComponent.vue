@@ -47,7 +47,7 @@
 	import {
 		ref
 	} from 'vue';
-	const target = ref(70) //把分数放进来！！
+  //把分数放进来！！
 	const modelVale = ref(0)
 	const props = defineProps({
 		description: {
@@ -63,6 +63,7 @@
 			default: ''
 		}
 	});
+		const target = ref(Number(props.scoreDisplay)) 
 
 	const isshow = ref(false);
 

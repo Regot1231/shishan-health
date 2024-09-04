@@ -36,7 +36,13 @@
 			url: `/pages/detail/index?id=${articleId}`,
 		});
 	};
-	onMounted(async () => {
+	
+	const isDarkened = ref(false);
+	const handleChooseWay = () => {
+		isDarkened.value = !isDarkened.value;
+	}
+	// 封装分享信息函数
+	const sendGetShareList = async () => {
 		const res = await getShareList()
 		if (res.code === 200) {
 			shareList.value = res.rows
@@ -50,13 +56,9 @@
 				icon: 'none',
 			});
 		}
-	})
-	
-	const isDarkened = ref(false);
-	const handleChooseWay = () => {
-		isDarkened.value = !isDarkened.value;
 	}
-	onShow(() => {
+	onShow(async () => {
+		sendGetShareList()
 		const curPages = getCurrentPages()[0]; // 获取当前页面实例
 		if (typeof curPages.getTabBar === 'function' && curPages.getTabBar()) {
 			curPages.getTabBar().setData({

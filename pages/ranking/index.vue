@@ -6,9 +6,9 @@
 		<view class="time-selector">
 			<view class="ranking-text">排行榜</view>
 			<view class="time">
-				<text :class="{ active: selectedTime === 'day' }" @click="changeTime('day')">日</text>
-				<text :class="{ active: selectedTime === 'week' }" @click="changeTime('week')">周</text>
-				<text :class="{ active: selectedTime === 'month' }" @click="changeTime('month')">月</text>
+				<text :class="{ active: selectedTime === 1 }" @click="changeTime(1)">日</text>
+				<text :class="{ active: selectedTime === 2 }" @click="changeTime(2)">周</text>
+				<text :class="{ active: selectedTime === 3 }" @click="changeTime(3)">月</text>
 			</view>
 		</view>
 
@@ -26,9 +26,10 @@
 					<text class="rank-text" v-if="index > 2">{{ index + 1 }}</text>
 					<image v-if="index < 3" :src="getMedal(index)" class="medal" />
 					<image :src="getAvatar(index)" class="avatar" />
-					<text class="name">{{ item.name }}</text>
+					<text class="name">{{ item.username }}</text>
 				</view>
-				<text class="score">{{ item.score }}分</text>
+				<text class="score" v-if="selectedCategory === 'health'">{{ item.score }}分</text>
+				<text class="score" v-else>{{ item.stepCounts }}步</text>
 			</view>
 		</view>
 	</view>
@@ -39,11 +40,14 @@
 		ref,
 		onMounted
 	} from "vue";
-	import {
-		fetchRankingData
-	} from "../../services/ranking";
+
 	import CustomNavbar from "@/components/CustomNavbar.vue";
-	const selectedTime = ref("week"); // 默认周
+	import  { onShow } from "@dcloudio/uni-app";
+	import {
+		getCardRankings,
+		getSportRankingsimpo
+	} from "../../api/ranking";
+	const selectedTime = ref(2); // 默认周
 	const selectedCategory = ref("health"); // 默认饮食健康
 	const rankingList = ref([]);
 
@@ -59,17 +63,28 @@
 
 	const fetchData = async () => {
 		const params = {
-			time: selectedTime.value,
+			status: selectedTime.value,
 			category: selectedCategory.value,
 		};
-		const response = await fetchRankingData(params);
-		rankingList.value = response.data;
+		if (selectedCategory.value === "health") {
+			const response = await getCardRankings(params);
+			console.log("返回的数据", response)
+			rankingList.value = response;
+		} else if (selectedCategory.value === "sport") {
+			const res = await getSportRankings(params);
+			console.log("返回的数据", res)
+			rankingList.value = res;
+		} else {
+			uni.showToast({
+				title: "请求数据失败",
+				icon: "error"
+			})
+		}
+
 	};
-
-	onMounted(() => {
+	onShow(() => {
 		fetchData();
-	});
-
+	           })
 	const getMedal = (index) => {
 		const medals = [
 			"../../static/image/ranking/gold.png",
@@ -89,8 +104,8 @@
 	// 设置前三名背景样式
 	const getBackgroundClass = (index) => {
 		if (index === 0) return "first-place";
-		if (index === 1) return "second-place";
-		if (index === 2) return "third-place";
+		if (index === 1) return " third-place";
+		if (index === 2) return "second-place";
 		return "";
 	};
 </script>
@@ -100,6 +115,7 @@
 		padding: 0 20px;
 		margin-top: 5%;
 		position: relative;
+		color: #333333;
 	}
 
 	.time-selector {
@@ -165,9 +181,11 @@
 		border-radius: 30rpx;
 		background-color: #FFFFFF;
 	}
+
 	.ranking-item:first-child {
-				box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+		box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
 	}
+
 	.left-content {
 		display: flex;
 		align-items: center;

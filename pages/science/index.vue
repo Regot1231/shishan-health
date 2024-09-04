@@ -34,7 +34,8 @@
 			url: `/pages/detail/index?id=${articleId}`,
 		});
 	};
-	onMounted(async () => {
+	// 封装获取科普信息函数
+	const sendGetScienceList = async () => {
 		const res = await getScienceList()
 		if (res.code === 200) {
 			articleList.value = res.rows
@@ -48,7 +49,8 @@
 				icon: 'none',
 			});
 		}
-	})
+	}
+
 
 	// article.value = {
 	// 	avatar: "/static/image/detail/healthy-hand.png",
@@ -64,6 +66,7 @@
 		isDarkened.value = !isDarkened.value;
 	}
 	onShow(() => {
+		sendGetScienceList()
 		const curPages = getCurrentPages()[0]; // 获取当前页面实例
 		if (typeof curPages.getTabBar === "function" && curPages.getTabBar()) {
 			curPages.getTabBar().setData({

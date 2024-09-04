@@ -46,6 +46,10 @@
 	import {
 		getOtherUser
 	} from '../../../api/user';
+	import {
+		onShow,
+		onHide
+	} from "@dcloudio/uni-app";
 	const showReplyInput = ref(false); // 控制回复输入框的显示
 	const replyText = ref(''); // 回复内容
 
@@ -102,7 +106,8 @@
 			for (const [index, reply] of replies.value.entries()) {
 				const respond = await getOtherUser(reply.userId);
 				if (respond.code === 200) {
-					subComments.value[index].user = respond.user.userName;
+					subComments.value[index].user = respond.user.nickName || "微信用户";
+					subComments.value[index].avatar = respond.user.avatar || "/static/image/wx_default_avatar.png";
 				} else {
 					uni.showToast({
 						title: respond.msg || '请求失败',
@@ -120,8 +125,8 @@
 					date: reply.createTime || '',
 					content: reply.content || '',
 					likes: reply.like || 0,
-					avatar: "/static/image/detail/healthy-hand.png",
-					user: '???',
+					avatar: "/static/image/wx_default_avatar.png",
+					user: '微信用户',
 					commentId: reply.commentId
 				}
 
@@ -131,11 +136,9 @@
 
 	}
 
-
-	onMounted(() => {
-		changeSubComments()
+	onShow(() => {
+			changeSubComments()
 	})
-
 
 	const toggleSubComments = () => {
 		showSubComments.value = !showSubComments.value;

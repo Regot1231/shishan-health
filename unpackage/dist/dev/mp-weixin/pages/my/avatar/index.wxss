@@ -1,0 +1,18 @@
+
+.avatar-wrapper.data-v-9ff30763 {
+		padding: 0;
+		border-radius: 8px;
+		margin-top: 40px;
+		width: 56px;
+		margin-bottom: 40px;
+}
+.avatar.data-v-9ff30763 {
+		display: block;
+		width: 56px;
+		height: 56px;
+}
+.submit.data-v-9ff30763 {
+		background-color: #55B89A;
+		color: #ffffff;
+		border-radius: 20px;
+}

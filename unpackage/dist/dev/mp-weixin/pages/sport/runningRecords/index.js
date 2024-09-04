@@ -40,7 +40,7 @@ const _sfc_main = {
         }),
         e: common_vendor.p({
           prop: "distance",
-          label: "运动距离"
+          label: "运动距离/米"
         }),
         f: common_vendor.p({
           prop: "points",

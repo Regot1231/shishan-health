@@ -48,11 +48,17 @@ const _sfc_main = {
         });
       }
     };
-    common_vendor.onMounted(() => {
+    common_vendor.index.startPullDownRefresh({
+      success() {
+        fetchRecommendations();
+      }
+    });
+    common_vendor.onShow(() => {
       fetchRecommendations();
       runningRecords.value = common_vendor.index.getStorageSync("runningRecords");
       if (runningRecords.value[0]) {
         runningRecordsToday.value = runningRecords.value[0];
+        common_vendor.index.stopPullDownRefresh();
       } else {
         common_vendor.index.showToast({
           title: "获取跑步记录失败",
@@ -79,12 +85,14 @@ const _sfc_main = {
         d: common_vendor.t(runningRecordsToday.value.totalPoints),
         e: runningRecordsToday.value.totalCount >= 1 ? 1 : "",
         f: runningRecordsToday.value.totalCount >= 2 ? 1 : "",
-        g: isActive.value ? `url('/static/image/index/Group 43.png')` : `url('/static/image/index/Group 42.png')`,
-        h: isActive.value ? "#55B89A" : "#D8F9EF",
-        i: common_assets._imports_0$2,
-        j: common_vendor.o(goToQuestion),
-        k: common_vendor.o(goToScience),
-        l: common_vendor.f(recommendations.value, (item, index, i0) => {
+        g: isActive.value ? 1 : "",
+        h: !isActive.value ? 1 : "",
+        i: isActive.value ? 1 : "",
+        j: !isActive.value ? 1 : "",
+        k: common_assets._imports_0$2,
+        l: common_vendor.o(goToQuestion),
+        m: common_vendor.o(goToScience),
+        n: common_vendor.f(recommendations.value, (item, index, i0) => {
           return {
             a: index,
             b: "0b80912c-1-" + i0,

@@ -44,13 +44,15 @@
   height: 80rpx;
   background-color: #f0f0f0;
 }
-.my-score .history.data-v-2ba5beff, .my-score .score.data-v-2ba5beff {
+.my-score .history.data-v-2ba5beff,
+.my-score .score.data-v-2ba5beff {
   display: flex;
   width: 320rpx;
   align-items: center;
   justify-content: center;
 }
-.my-score .history .score-label.data-v-2ba5beff, .my-score .score .score-label.data-v-2ba5beff {
+.my-score .history .score-label.data-v-2ba5beff,
+.my-score .score .score-label.data-v-2ba5beff {
   color: #333;
   font-size: 32rpx;
   line-height: 30rpx;

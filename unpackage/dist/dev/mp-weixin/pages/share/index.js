@@ -22,7 +22,11 @@ const _sfc_main = {
         url: `/pages/detail/index?id=${articleId}`
       });
     };
-    common_vendor.onMounted(async () => {
+    const isDarkened = common_vendor.ref(false);
+    const handleChooseWay = () => {
+      isDarkened.value = !isDarkened.value;
+    };
+    const sendGetShareList = async () => {
       const res = await api_article.getShareList();
       if (res.code === 200) {
         shareList.value = res.rows;
@@ -36,12 +40,9 @@ const _sfc_main = {
           icon: "none"
         });
       }
-    });
-    const isDarkened = common_vendor.ref(false);
-    const handleChooseWay = () => {
-      isDarkened.value = !isDarkened.value;
     };
-    common_vendor.onShow(() => {
+    common_vendor.onShow(async () => {
+      sendGetShareList();
       const curPages = getCurrentPages()[0];
       if (typeof curPages.getTabBar === "function" && curPages.getTabBar()) {
         curPages.getTabBar().setData({

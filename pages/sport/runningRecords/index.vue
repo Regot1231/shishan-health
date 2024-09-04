@@ -3,7 +3,7 @@
 	<wd-table :data="runningRecords" >
 		<wd-table-col prop="date" label="日期" fixed></wd-table-col>
 		<wd-table-col prop="time" label="运动时长"></wd-table-col>
-		<wd-table-col prop="distance" label="运动距离"></wd-table-col>
+		<wd-table-col prop="distance" label="运动距离/米"></wd-table-col>
 		<wd-table-col prop="points" label="得分"></wd-table-col>
 		<wd-table-col prop="scheme" label="方案"></wd-table-col>
 		<wd-table-col prop="totalPoints" label="总得分"></wd-table-col>

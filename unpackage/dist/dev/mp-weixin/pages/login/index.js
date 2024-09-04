@@ -50,54 +50,6 @@ const _sfc_main = {
         });
       }
     };
-    const handleWeixinLogin = () => {
-      common_vendor.index.login({
-        provider: "weixin",
-        success: (loginRes) => {
-          console.log("登录成功:", loginRes);
-          const code = loginRes.code;
-          sendCodeToServer(code);
-        },
-        fail: (error) => {
-          console.error("登录失败:", error);
-        }
-      });
-    };
-    const sendCodeToServer = (code) => {
-      common_vendor.index.request({
-        url: "http://47.115.213.253:3233/system/user/sessionId",
-        // 替换为你的后端登录接口
-        method: "GET",
-        data: {
-          code
-        },
-        success: (res) => {
-          console.log(res.data);
-          if (res.data.session_key) {
-            common_vendor.index.setStorageSync("session_key", res.data.session_key);
-            common_vendor.index.showToast({
-              title: "登录成功",
-              icon: "success"
-            });
-            common_vendor.index.navigateTo({
-              url: "/pages/index/index"
-            });
-          } else {
-            common_vendor.index.showToast({
-              title: "登录失败",
-              icon: "none"
-            });
-          }
-        },
-        fail: (err) => {
-          console.error("请求失败:", err);
-          common_vendor.index.showToast({
-            title: "请求失败",
-            icon: "none"
-          });
-        }
-      });
-    };
     const goToRegister = () => {
       common_vendor.index.navigateTo({
         url: "/pages/register/index"
@@ -119,9 +71,8 @@ const _sfc_main = {
         }),
         e: password.value,
         f: common_vendor.o(($event) => password.value = $event.detail.value),
-        g: common_vendor.o(handleWeixinLogin),
-        h: common_vendor.o(handleLogin),
-        i: common_vendor.o(goToRegister)
+        g: common_vendor.o(handleLogin),
+        h: common_vendor.o(goToRegister)
       };
     };
   }

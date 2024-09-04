@@ -27,8 +27,9 @@ const _sfc_main = {
     }
   },
   setup(__props) {
-    const target = common_vendor.ref(70);
     const modelVale = common_vendor.ref(0);
+    const props = __props;
+    const target = common_vendor.ref(Number(props.scoreDisplay));
     const isshow = common_vendor.ref(false);
     const popupClick = () => {
       isshow.value = !isshow.value;

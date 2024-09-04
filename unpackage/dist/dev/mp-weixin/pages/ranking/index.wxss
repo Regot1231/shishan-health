@@ -3,6 +3,7 @@
 		padding: 0 20px;
 		margin-top: 5%;
 		position: relative;
+		color: #333333;
 }
 .time-selector.data-v-55d17871 {
 		display: flex;
@@ -60,7 +61,7 @@
 		background-color: #FFFFFF;
 }
 .ranking-item.data-v-55d17871:first-child {
-				box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
+		box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.3);
 }
 .left-content.data-v-55d17871 {
 		display: flex;

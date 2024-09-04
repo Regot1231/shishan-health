@@ -6,15 +6,15 @@
 		</view>
 		<view class="form-box">
 			<view class="row-input">
-				<wd-icon name="user" size="17px" color="#55B89A" style=" padding: 0rpx 30rpx 0rpx 10rpx;"></wd-icon>
+				<wd-icon name="user" size="17px" color="#55B89A"  style=" padding: 0rpx 30rpx 0rpx 10rpx;"></wd-icon>
 				<input placeholder="请输入用户名" maxlength="11" v-model="username" placeholder-class="placeholder" />
 			</view>
 			<view class="row-input">
 				<wd-icon name="lock-on" size="17px" color="#55B89A" style=" padding: 0rpx 30rpx 0rpx 10rpx;"></wd-icon>
 				<input placeholder="请输入密码" maxlength="18" v-model="password" password placeholder-class="placeholder" />
 			</view>
-			<view class="login-btn" @click="handleWeixinLogin">微信快捷登录</view>
-			<view class="login-btn" @click="handleLogin">登录</view>
+<!-- 			<view class="login-btn" @click="handleWeixinLogin">登录</view> -->
+              <view class="login-btn" @click="handleLogin">登录</view>
 			<view class="menu-link">
 				<text @click="goToRegister">注册账号</text>
 				<text>忘记密码？</text>
@@ -36,13 +36,16 @@
 		useRouter
 	} from 'vue-router';
 	import {
-		login
+		getUserInfo,
+		putUserInfo,
+		login,
 	} from '@/api/user'; // 导入 login 方法
 
 	const username = ref('');
 	const password = ref('');
 	const router = useRouter();
 
+	// 封装用户登录函数
 	const handleLogin = async () => {
 		if (username.value && password.value) {
 			try {
@@ -57,6 +60,8 @@
 					});
 					// 保存 token，并跳转到主页面或其他页面
 					uni.setStorageSync('token', res.token);
+					// 同时发送快捷登录请求
+
 					uni.switchTab({
 						url: '/pages/index/index'
 					}); // 假设主页为 /pages/index/index
@@ -79,58 +84,56 @@
 			});
 		}
 	};
-	// 微信快捷登录
-	const handleWeixinLogin = () => {
-		uni.login({
-			provider: 'weixin',
-			success: (loginRes) => {
-				console.log('登录成功:', loginRes)
-				const code = loginRes.code
-				// 将code发送到服务器
-				sendCodeToServer(code)
-			},
-			fail: (error) => {
-				console.error('登录失败:', error)
-			}
-		})
+	// 封装修改个人信息函数
+	const sendPutUserInfo = async (id) => {
+		const avatar = uni.getStorageSync("avatarUrl")
+		const nickName = uni.getStorageSync("nickName")
+		const data = {
+			userId: id,
+			avatar,
+			nickName
+		}
+		const res = await putUserInfo(data)
+		if (res.code === 200) {
+			uni.showToast({
+				title: '修改用户信息成功',
+				icon: 'success'
+			})
+		} else {
+			uni.showToast({
+				title: '修改用户信息失败',
+				icon: 'error'
+			})
+		}
 	}
-	const sendCodeToServer = (code) => {
-		uni.request({
-			url: 'http://47.115.213.253:3233/system/user/sessionId', // 替换为你的后端登录接口
-			method: 'GET',
-			data: {
-				code: code
-			},
-			success: (res) => {
-				console.log(res.data)
-				if (res.data.session_key) {
-					// 假设服务器返回一个token
-					// const token = res.data.token
-					uni.setStorageSync('session_key', res.data.session_key)
-					uni.showToast({
-						title: '登录成功',
-						icon: 'success'
-					})
-					// 跳转到首页或其他页面
-					uni.navigateTo({
-						url: '/pages/index/index'
-					})
-				} else {
-					uni.showToast({
-						title: '登录失败',
-						icon: 'none'
-					})
-				}
+
+	// 封装获取微信用户个人信息函数
+	const getUserProfile = () => {
+		wx.getUserProfile({
+			desc: '用于展示用户头像和昵称', // 必填，弹窗后向用户展示的描述
+			success: async (res) => {
+				console.log(res)
+				const avatarUrl = res.userInfo.avatarUrl;
+				const nickName = res.userInfo.nickName;
+				uni.setStorageSync("avatarUrl", avatarUrl)
+				uni.setStorageSync("nickName", nickName)
+				await handleLogin()
+				await sendGetUserInfo()
+
 			},
 			fail: (err) => {
-				console.error('请求失败:', err)
 				uni.showToast({
-					title: '请求失败',
+					title: '获取用户信息失败',
 					icon: 'none'
-				})
+				});
+				console.error('获取用户信息失败:', err);
 			}
-		})
-	}
+		});
+	};
+
+
+
+
 	const goToRegister = () => {
 		uni.navigateTo({
 			url: '/pages/register/index'
@@ -199,6 +202,7 @@
 				padding: 0rpx 40rpx;
 				color: #55B89A;
 				border-left: 3rpx solid #55B89A;
+				margin-left: 40rpx;
 			}
 		}
 

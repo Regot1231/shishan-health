@@ -1,14 +1,10 @@
 <template>
 	<view class="tabBar">
 		<view class="cont">
-			<view v-for="(item, index) in list" class="cont-item">
-				<view v-if="item.search" @click="chooseWay" :class="{
-          search: item.search,
-          item: !item.search,
-          on: selected === index ? true : false,
-          off: selected != index ? true : false,
-        }">
-					<image v-if="item.search" :src="selected === index ? item.selectedIconPath : item.iconPath">
+			<view v-for="(item, index) in list" class="cont-item" :key="index">
+				<view v-if="item.search" @click="chooseWay"
+					:class="{ search: item.search, item: !item.search, on: selected === index ? true : false, off: selected != index ? true : false,}">
+					<image v-if="item.search" :src="selected === index ? item.selectedIconPath : item.iconPath" mode="scaleToFill">
 					</image>
 					<view :class="{
             txt: true,
@@ -16,13 +12,16 @@
           }">{{ item.text }}
 					</view>
 				</view>
+				
+				
+	
 				<view v-else @click="switchTab(item.pagePath)" :class="{
           search: item.search ? true : false,
           item: !item.search,
           on: selected === index ? true : false,
           off: selected != index ? true : false,
         }">
-					<image v-if="item.search" :src="selected === index ? item.selectedIconPath : item.iconPath">
+					<image v-if="item.search" :src="selected === index ? item.selectedIconPath : item.iconPath" mode="scaleToFill">
 					</image>
 					<view :class="{
             txt: true,
@@ -158,6 +157,8 @@
 		{
 			text: "科普",
 			pagePath: "/pages/science/index",
+			iconPath: "/static/image/bottomBar/index.png",
+			selectedIconPath: "/static/image/bottomBar/index-active.png",
 		},
 		{
 			pagePath: "/pages/ranking/ranking",
@@ -168,6 +169,8 @@
 		{
 			text: "分享",
 			pagePath: "/pages/share/index",
+			iconPath: "/static/image/bottomBar/index.png",
+			selectedIconPath: "/static/image/bottomBar/index-active.png",
 		},
 		{
 			text: "我的",

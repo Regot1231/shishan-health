@@ -48,24 +48,29 @@ const _sfc_main = {
     };
     const getUserLocation = () => {
       debugInfo.value += "\n开始获取用户定位权限";
+      console.log(debugInfo.value);
       common_vendor.index.getSetting({
         success(res) {
           if (!res.authSetting["scope.userLocation"]) {
             debugInfo.value += "\n未授权定位权限，申请授权中";
+            console.log(debugInfo.value);
             common_vendor.index.authorize({
               scope: "scope.userLocation",
               success() {
                 debugInfo.value += "\n授权成功，开始获取位置";
+                console.log(debugInfo.value);
                 fetchLocation();
               },
               fail() {
                 debugInfo.value += "\n授权失败，提示用户前往设置开启权限";
+                console.log(debugInfo.value);
                 common_vendor.index.showModal({
                   title: "授权失败",
                   content: "请前往设置中开启地理位置权限",
                   success(modalRes) {
                     if (modalRes.confirm) {
                       debugInfo.value += "\n用户同意前往设置";
+                      console.log(debugInfo.value);
                       common_vendor.index.openSetting();
                     }
                   }
@@ -74,12 +79,14 @@ const _sfc_main = {
             });
           } else {
             debugInfo.value += "\n已授权定位权限，开始获取位置";
+            console.log(debugInfo.value);
             fetchLocation();
           }
         },
         fail(err) {
           debugInfo.value += `
 获取用户设置失败: ${JSON.stringify(err)}`;
+          console.log(debugInfo.value);
         }
       });
     };
@@ -89,6 +96,7 @@ const _sfc_main = {
         success(locRes) {
           debugInfo.value += `
 当前位置获取成功: 经度: ${locRes.longitude}, 纬度: ${locRes.latitude}`;
+          console.log(debugInfo.value);
           latitude.value = locRes.latitude;
           longitude.value = locRes.longitude;
           markers.value = [{
@@ -109,6 +117,7 @@ const _sfc_main = {
         fail(err) {
           debugInfo.value += `
 获取当前位置失败: ${JSON.stringify(err)}`;
+          console.log(debugInfo.value);
         }
       });
     };
@@ -116,6 +125,7 @@ const _sfc_main = {
       goButtonText.value = "结束";
       goButtonClass.value = "stop-button";
       debugInfo.value += "\n开始跑步";
+      console.log(debugInfo.value);
       startTime = Date.now();
       if (startLocation) {
         distance.value = 0;
@@ -123,9 +133,11 @@ const _sfc_main = {
       common_vendor.index.startLocationUpdate({
         success() {
           debugInfo.value += "\n位置更新已开启";
+          console.log(debugInfo.value);
           watchId = common_vendor.index.onLocationChange((locRes) => {
             debugInfo.value += `
 位置变化: 经度: ${locRes.longitude}, 纬度: ${locRes.latitude}, 速度: ${locRes.speed}`;
+            console.log(debugInfo.value);
             const newLocation = {
               latitude: locRes.latitude,
               longitude: locRes.longitude
@@ -153,28 +165,33 @@ const _sfc_main = {
               isCounting = false;
               debugInfo.value += `
 速度不在规定范围内，暂停计时`;
+              console.log(debugInfo.value);
             }
           });
         },
         fail(err) {
           debugInfo.value += `
 开启位置更新失败: ${JSON.stringify(err)}`;
+          console.log(debugInfo.value);
         }
       });
       timer = setInterval(updateTime, 1e3);
     };
     const stopRunning = () => {
       debugInfo.value += "\n停止跑步";
+      console.log(debugInfo.value);
       goButtonText.value = "GO";
       goButtonClass.value = "go-button";
       clearInterval(timer);
       common_vendor.index.stopLocationUpdate({
         success() {
           debugInfo.value += "\n位置更新已停止";
+          console.log(debugInfo.value);
         },
         fail(err) {
           debugInfo.value += `
 停止位置更新失败: ${JSON.stringify(err)}`;
+          console.log(debugInfo.value);
         }
       });
       common_vendor.index.offLocationChange(watchId);
@@ -209,8 +226,8 @@ const _sfc_main = {
       }
       score.value = earnedScore;
       const newRecord = {
-        date: (/* @__PURE__ */ new Date()).toLocaleDateString(),
-        // 当前日期
+        date: formatDateTime(/* @__PURE__ */ new Date()),
+        // 当前日期和时间格式化
         time: formattedTime.value,
         distance: distance.value,
         points: earnedScore,
@@ -223,7 +240,9 @@ const _sfc_main = {
       };
       runningRecords.value.push(newRecord);
       common_vendor.index.setStorageSync("runningRecords", runningRecords.value);
-      console.log(`总运动时间: ${formattedTime.value}, 方案1得分次数: ${scheme1Count}, 方案2得分次数: ${scheme2Count}, 得分: ${score.value}`);
+      console.log(
+        `总运动时间: ${formattedTime.value}, 方案1得分次数: ${scheme1Count}, 方案2得分次数: ${scheme2Count}, 得分: ${score.value}`
+      );
     };
     const updateTime = () => {
       if (isCounting) {
@@ -249,8 +268,21 @@ const _sfc_main = {
       const secs = seconds % 60;
       return `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     };
+    const formatDateTime = (date) => {
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const formattedMonth = month < 10 ? "0" + month : month;
+      const formattedDay = day < 10 ? "0" + day : day;
+      const formattedHours = hours < 10 ? "0" + hours : hours;
+      const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+      return `${year}年${formattedMonth}月${formattedDay}日 ${formattedHours}:${formattedMinutes}`;
+    };
     const viewHistory = () => {
       debugInfo.value += "\n查看运动记录";
+      console.log(debugInfo.value);
       common_vendor.index.navigateTo({
         url: `/pages/sport/runningRecords/index`
       });

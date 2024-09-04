@@ -13,14 +13,14 @@
 					</view>
 				</view>
 
-				<CommentItem v-for="(comment, index) in comments" :key="index" :comment="comment"/>
+				<CommentItem v-for="(comment, index) in comments" :key="index" :comment="comment" />
 
 			</view>
 		</view>
 		<!-- 底部评论功能 -->
 		<view class="comment-bar">
 			<view class="input-box">
-				<input confirm-type="send" v-model="commentText" @confirm="sendComment" type="text" placeholder="评论点什么" />
+				<input confirm-type="send" v-model="commentText" @confirm="sendComment(article.articleId)" type="text" placeholder="评论点什么" />
 			</view>
 			<view class="icons">
 				<view class="comment-icon">
@@ -41,7 +41,8 @@
 			onMounted
 		} from "vue";
 		import {
-			onLoad
+			onLoad,
+			onShow
 		} from '@dcloudio/uni-app'
 		import CommentItem from "./components/CommentItem.vue";
 		import NavBar from "@/components/NavBar.vue";
@@ -49,7 +50,11 @@
 		import {
 			getOtherUser
 		} from "../../api/user";
-		import { postComment, postLike, postView } from "../../api/article";
+		import {
+			postComment,
+			postLike,
+			postView
+		} from "../../api/article";
 		import {
 			getArticleDetail,
 			getCommentLikeLists,
@@ -58,23 +63,7 @@
 		const handleBack = () => {
 			uni.navigateBack();
 		};
-		const handleLike = async(id) => {
-			console.log("开始点赞了！")
-			const data = { id, status: 0}
-			console.log("开始点赞了！", data)
-			const res = await postLike(data)
-			if(res.code === 200) {
-				uni.showToast({
-					title: '点赞成功',
-					icon: 'success',
-				});
-			} else {
-				uni.showToast({
-					title: '点赞失败',
-					icon: 'none',
-				});
-			}
-		}
+
 		const commentText = ref('')
 		const article = ref({});
 		const options = ref({})
@@ -86,7 +75,8 @@
 			for (const [index, row] of rows.entries()) {
 				const respond = await getOtherUser(row.userId);
 				if (respond.code === 200) {
-					comments.value[index].user = respond.user.userName;
+					comments.value[index].user = respond.user.nickName || "微信用户";
+					comments.value[index].avatar = respond.user.avatar || "/static/image/wx_default_avatar.png";
 				} else {
 					uni.showToast({
 						title: respond.msg || '请求失败',
@@ -95,11 +85,48 @@
 				}
 			}
 		}
-		
-		
+		// 封装点赞函数
+		const handleLike = async (id) => {
+			console.log("开始点赞了！")
+			const data = {
+				id,
+				status: 0
+			}
+			console.log("开始点赞了！", data)
+			const res = await postLike(data)
+			if (res.code === 200) {
+				sendGetArticleDetail(id)
+				uni.showToast({
+					title: '点赞成功',
+					icon: 'success',
+				});
+			} else {
+				uni.showToast({
+					title: '点赞失败',
+					icon: 'none',
+				});
+			}
+		}
+		// 封装浏览函数
+		const handlePostView = async (id) => {
+			const res = await postView(id)
+			if (res.code === 200) {
+		     	sendGetArticleDetail(id)
+				uni.showToast({
+					title: '浏览成功',
+					icon: 'success',
+				});
+			} else {
+				uni.showToast({
+					title: '浏览失败',
+					icon: 'none',
+				});
+			}
+		}
 		// 处理评论发送逻辑
-		const sendComment = async() => {
+		const sendComment = async (id) => {
 			if (commentText.value.trim() === '') {
+				sendGetArticleDetail(id)
 				uni.showToast({
 					title: '评论不能为空',
 					icon: 'none',
@@ -115,26 +142,25 @@
 				userId: `${userInfo.userId}`,
 				articleId: options.value.id
 			}
-		    const res = await postComment(data)
+			const res = await postComment(data)
 			// 发送成功后清空输入框
 			commentText.value = '';
 		};
 		// 封装一个点赞量列表函数
 		const commentLikeLists = async (id) => {
-
 			options.value.id = id
 			console.log("跳转之前的id", id)
 			const res = await getCommentLikeLists(id)
 			if (res.code === 200) {
 				commentTotal.value = res.total
-				
+
 				comments.value = res.rows.map(row => {
 					return {
 						date: row.createTime || '',
 						content: row.content || '',
 						likes: row.like || 0,
-						avatar: "/static/image/detail/healthy-hand.png",
-						user: '???',
+						avatar: "/static/image/wx_default_avatar.png",
+						user: "微信用户",
 						commentId: row.commentId,
 						replies: row.replies,
 						articleId: row.articleId
@@ -163,8 +189,8 @@
 						date: row.createTime || '',
 						content: row.content || '',
 						likes: row.like || 0,
-						avatar: "/static/image/detail/healthy-hand.png",
-						user: '???',
+						avatar: "/static/image/wx_default_avatar.png",
+						user: "微信用户",
 						commentId: row.commentId,
 						replies: row.replies,
 						articleId: row.articleId
@@ -179,59 +205,18 @@
 			}
 
 		}
-
-		onMounted(async() => {
-
-			// 模拟数据
-			// article.value = {
-			// avatar: "/static/image/detail/healthy-hand.png",
-			//   title: "合理控制热量，预防超重和肥胖",
-			//   author: "健康小能手",
-			//   views: 36734,
-			//   date: "2024-07-15",
-			//   content:
-			//     "热量是人体所需能量的单位，摄入热量过多会导致体重增加。成年人每天所需热量一般在1800-2500千卡之间，视个人情况而定...",
-			//   image: "/static/image/detail/healthy-image.png",
-			// };
-
-			// comments.value = [{
-			// 		avatar: "/static/image/detail/healthy-hand.png",
-			// 		user: "健康中心",
-			// 		date: "2024-07-15",
-			// 		content: "呼吸道疾病不仅仅是个人健康问题，也影响整个社会的公共卫生。",
-			// 		likes: 98,
-			// 	},
-			// 	{
-			// 		avatar: "/static/image/detail/healthy-hand.png",
-			// 		user: "营养专家",
-			// 		date: "2024-07-16",
-			// 		content: "适当控制热量摄入是保持健康的关键，特别是对于减肥人士。",
-			// 		likes: 54,
-			// 	},
-			// ];
-		});
-
-		onLoad(async (options) => {
-			// 只提取必要的属性
-			const {
-				id
-			} = options;
-
-			options.value = {
-				id
-			}; // 或者其他必要的属性
-
-			const articleId = options.value.id;
-			console.log("传过来的id", articleId) // 获取传递过来的id
-			commentLikeLists(articleId)
-			const res = await getArticleDetail(articleId)
+		// 封装获取文章详情函数
+		const sendGetArticleDetail = async (id) => {
+			const res = await getArticleDetail(id)
 			if (res.code === 200) {
 				article.value = res.data
-				
+
 				// 加载页面的时候增加浏览量
 				console.log(article.value.viewCount)
-				const data = {id: article.value.viewCount}
-				    postView(data)
+				const data = {
+					id: article.value.viewCount
+				}
+				postView(data)
 				const respond = await getOtherUser(res.data.author)
 				if (respond.code === 200) {
 					article.value.author = respond.user.userName
@@ -247,7 +232,29 @@
 					icon: 'none'
 				});
 			}
+		}
+
+		onLoad(async (options) => {
+			// 只提取必要的属性
+			const {
+				id
+			} = options;
+
+			options.value = {
+				id
+			}; // 或者其他必要的属性
+			sendGetArticleDetail(options.value.id)
+			const articleId = options.value.id;
+			console.log("传过来的id", articleId) // 获取传递过来的id
+			commentLikeLists(articleId)
+			handlePostView(articleId)
 		});
+		
+		
+		onShow(() => {
+			commentLikeLists(options.value.id)
+			handlePostView(options.value.id)
+		})
 	</script>
 
 	<style scoped>

@@ -135,6 +135,7 @@ page {
             padding: 0rpx 40rpx;
             color: #55B89A;
             border-left: 3rpx solid #55B89A;
+			margin-left: 40rpx;
         }
     }
 

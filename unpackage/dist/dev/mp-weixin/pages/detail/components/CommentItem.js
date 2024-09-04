@@ -67,7 +67,8 @@ const _sfc_main = {
         for (const [index, reply] of replies.value.entries()) {
           const respond = await api_user.getOtherUser(reply.userId);
           if (respond.code === 200) {
-            subComments.value[index].user = respond.user.userName;
+            subComments.value[index].user = respond.user.nickName || "微信用户";
+            subComments.value[index].avatar = respond.user.avatar || "/static/image/wx_default_avatar.png";
           } else {
             common_vendor.index.showToast({
               title: respond.msg || "请求失败",
@@ -84,15 +85,15 @@ const _sfc_main = {
             date: reply.createTime || "",
             content: reply.content || "",
             likes: reply.like || 0,
-            avatar: "/static/image/detail/healthy-hand.png",
-            user: "???",
+            avatar: "/static/image/wx_default_avatar.png",
+            user: "微信用户",
             commentId: reply.commentId
           };
         });
         await updateUserInfo();
       }
     };
-    common_vendor.onMounted(() => {
+    common_vendor.onShow(() => {
       changeSubComments();
     });
     const toggleSubComments = () => {

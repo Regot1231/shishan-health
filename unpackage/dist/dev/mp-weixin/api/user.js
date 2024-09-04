@@ -30,6 +30,17 @@ const getOtherUser = (userId) => {
     method: "GET"
   });
 };
+const putUserInfo = (data) => {
+  return utils_request.request({
+    url: `/system/user`,
+    method: "PUT",
+    header: {
+      "Content-Type": "application/json"
+      // 指定请求体格式为 JSON
+    },
+    data
+  });
+};
 const getUserComments = (userId) => {
   return utils_request.request({
     url: `/system/comment/list`,
@@ -43,4 +54,5 @@ exports.getOtherUser = getOtherUser;
 exports.getUserComments = getUserComments;
 exports.getUserInfo = getUserInfo;
 exports.login = login;
+exports.putUserInfo = putUserInfo;
 exports.register = register;

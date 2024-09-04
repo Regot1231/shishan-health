@@ -1,5 +1,5 @@
 <template>
-			<NavBar title="修改密码" :showBack="true" :showShare="false" @back="handleBack" />
+	<NavBar title="修改密码" :showBack="true" :showShare="false" @back="handleBack" />
 	<view class="change-password-page">
 
 		<view class="header">
@@ -20,13 +20,21 @@
 		ref
 	} from 'vue'
 	import NavBar from '../../../components/NavBar.vue';
+	import {
+		putUserInfo
+	} from '../../../api/user';
 	const oldPassword = ref('')
 	const newPassword = ref('')
 	const confirmPassword = ref('')
-  const handleBack = () => {
-    uni.navigateBack();
-  };
-	const handleChangePassword = () => {
+	const handleBack = () => {
+		uni.navigateBack();
+	};
+	const handleChangePassword = async () => {
+		const userInfo = uni.getStorageSync("userInfo")
+		const data = {
+			userId: userInfo.userId,
+			password: newPassword.value
+		}
 		if (newPassword.value !== confirmPassword.value) {
 			uni.showToast({
 				title: '新密码与确认密码不一致',
@@ -34,12 +42,20 @@
 			})
 			return
 		}
+		const res = await putUserInfo(data)
+		if (res.code === 200) {
 
-		// 在此添加修改密码的逻辑
-		uni.showToast({
-			title: '密码已修改',
-			icon: 'success'
-		})
+			uni.showToast({
+				title: '密码已修改',
+				icon: 'success'
+			})
+		} else {
+			uni.showToast({
+				title: '修改密码失败',
+				icon: 'error'
+			})
+		}
+
 	}
 </script>
 

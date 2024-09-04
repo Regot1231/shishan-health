@@ -53,6 +53,7 @@ page.data-v-d08ef7d4 {
   padding: 0rpx 40rpx;
   color: #55B89A;
   border-left: 3rpx solid #55B89A;
+  margin-left: 40rpx;
 }
 .form-box .login-btn.data-v-d08ef7d4 {
   display: flex;

@@ -110,7 +110,9 @@ const _sfc_main = {
       },
       {
         text: "科普",
-        pagePath: "/pages/science/index"
+        pagePath: "/pages/science/index",
+        iconPath: "/static/image/bottomBar/index.png",
+        selectedIconPath: "/static/image/bottomBar/index-active.png"
       },
       {
         pagePath: "/pages/ranking/ranking",
@@ -120,7 +122,9 @@ const _sfc_main = {
       },
       {
         text: "分享",
-        pagePath: "/pages/share/index"
+        pagePath: "/pages/share/index",
+        iconPath: "/static/image/bottomBar/index.png",
+        selectedIconPath: "/static/image/bottomBar/index-active.png"
       },
       {
         text: "我的",
@@ -154,7 +158,7 @@ const _sfc_main = {
           } : {}, {
             d: common_vendor.t(item.text),
             e: (__props.selected === index ? true : false) ? 1 : "",
-            f: common_vendor.o(chooseWay),
+            f: common_vendor.o(chooseWay, index),
             g: item.search ? 1 : "",
             h: !item.search ? 1 : "",
             i: (__props.selected === index ? true : false) ? 1 : "",
@@ -166,12 +170,14 @@ const _sfc_main = {
           } : {}, {
             m: common_vendor.t(item.text),
             n: (__props.selected === index ? true : false) ? 1 : "",
-            o: common_vendor.o(($event) => switchTab(item.pagePath)),
+            o: common_vendor.o(($event) => switchTab(item.pagePath), index),
             p: (item.search ? true : false) ? 1 : "",
             q: !item.search ? 1 : "",
             r: (__props.selected === index ? true : false) ? 1 : "",
             s: (__props.selected != index ? true : false) ? 1 : ""
-          }));
+          }), {
+            t: index
+          });
         }),
         b: hoverSport.value ? activeSport : inactiveSport,
         c: common_vendor.o(($event) => hoverSport.value = true),

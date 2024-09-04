@@ -7,7 +7,7 @@
 					strokeColor="#55B89A" :trailWidth="13" trailColor="#D8F9EF" :dashboard="true">
 					<!-- 居中内容 -->
 					<view class="circle-content">
-						<view class="step-number">{{ wxRunData }}</view>
+						<view class="step-number">{{ wxRunData  }}</view>
 						<view class="bottom-text">今日步数</view>
 					</view>
 				</l-circle>
@@ -27,10 +27,12 @@
 				</view>
 				<view class="exercise-prescription">
 					<text class="exercise-label">运动处方</text>
-					<view class="exercise-steps" :style="{ backgroundColor: isActive ? '#55B89A' :  '#D8F9EF'}">
+					<view class="exercise-steps"
+						:class="{ 'activeBackground': isActive, 'inactiveBackground': !isActive }">
 						<view :class="{'step': true, 'active': (runningRecordsToday.totalCount >= 1)}"></view>
 						<view :class="{'step': true, 'big_active': (runningRecordsToday.totalCount >= 2)}"></view>
-						<view class="step"  :style="{ backgroundImage: isActive ? `url('/static/image/index/Group 43.png')` : `url('/static/image/index/Group 42.png')` }"></view>
+						<view class="step" :class="{ 'activeIcon': isActive, 'inactiveIcon': !isActive }">
+						</view>
 					</view>
 				</view>
 			</view>
@@ -67,6 +69,9 @@
 	import {
 		getHotInfo
 	} from "../../../api/article";
+	import {
+		onShow
+	} from "@dcloudio/uni-app";
 	defineProps({
 		wxRunData: Number,
 	});
@@ -132,21 +137,32 @@
 			});
 		}
 	};
-	onMounted(() => {
+
+	// 手动触发下拉刷新效果
+	uni.startPullDownRefresh({
+		success() {
+			// 下拉刷新成功后执行一些逻辑
+			fetchRecommendations();
+			// 停止下拉刷新效果
+		}
+	});
+
+	onShow(() => {
 		fetchRecommendations();
 		runningRecords.value = uni.getStorageSync("runningRecords")
 		if (runningRecords.value[0]) {
 			runningRecordsToday.value = runningRecords.value[0]
+			uni.stopPullDownRefresh();
 		} else {
 			uni.showToast({
 				title: "获取跑步记录失败",
 				icon: 'error'
 			});
 		}
-		if(runningRecordsToday.value.totalCount >=3) {
+		if (runningRecordsToday.value.totalCount >= 3) {
 			isActive.value = true
-		} 
-	});
+		}
+	})
 </script>
 
 <style lang="scss" scoped>
@@ -254,12 +270,28 @@
 						color: #999;
 					}
 
+					.exercise-steps.activeBackground {
+						background-color: #55B89A;
+					}
+
+					.exercise-steps.inactiveBackground {
+						background-color: #D8F9EF;
+					}
+
 					.exercise-steps {
 						display: flex;
 						justify-content: space-between;
 						background-color: #D8F9EF;
 						border-radius: 50rpx;
-						
+
+						.step.activeIcon {
+							background-image: url('/static/image/index/Group 43.png');
+						}
+
+						.step.inactiveIcon {
+							background-image: url('/static/image/index/Group 42.png');
+						}
+
 
 						.step {
 							position: relative;
@@ -303,7 +335,8 @@
 							border-left: 1px solid #55B89A;
 						}
 
-						.step.big_active::before, .step.active {
+						.step.big_active::before,
+						.step.active {
 							background-color: #55B89A;
 							border-radius: 0 0 0 0;
 						}
@@ -312,7 +345,7 @@
 							background-color: #55B89A;
 							border-radius: 0 20px 20px 0;
 							background-image: url("/static/image/index/Group 43.png");
-							
+
 						}
 
 					}

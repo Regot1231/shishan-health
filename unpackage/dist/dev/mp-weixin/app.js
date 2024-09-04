@@ -8,9 +8,9 @@ if (!Math) {
   "./pages/detail/index.js";
   "./pages/sport/index.js";
   "./pages/sport/runningRecords/index.js";
+  "./pages/my/avatar/index.js";
+  "./pages/my/nickname/index.js";
   "./pages/my/comment/index.js";
-  "./pages/my/forward/index.js";
-  "./pages/my/collection/index.js";
   "./pages/my/settings/index.js";
   "./pages/my/settings/aboutUs.js";
   "./pages/my/settings/changePassword.js";

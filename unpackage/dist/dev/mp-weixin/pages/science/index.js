@@ -21,7 +21,7 @@ const _sfc_main = {
         url: `/pages/detail/index?id=${articleId}`
       });
     };
-    common_vendor.onMounted(async () => {
+    const sendGetScienceList = async () => {
       const res = await api_article.getScienceList();
       if (res.code === 200) {
         articleList.value = res.rows;
@@ -35,12 +35,13 @@ const _sfc_main = {
           icon: "none"
         });
       }
-    });
+    };
     const isDarkened = common_vendor.ref(false);
     const handleChooseWay = () => {
       isDarkened.value = !isDarkened.value;
     };
     common_vendor.onShow(() => {
+      sendGetScienceList();
       const curPages = getCurrentPages()[0];
       if (typeof curPages.getTabBar === "function" && curPages.getTabBar()) {
         curPages.getTabBar().setData({

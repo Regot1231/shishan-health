@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const services_ranking = require("../../services/ranking.js");
+const api_ranking = require("../../api/ranking.js");
 if (!Math) {
   CustomNavbar();
 }
@@ -8,7 +8,7 @@ const CustomNavbar = () => "../../components/CustomNavbar.js";
 const _sfc_main = {
   __name: "index",
   setup(__props) {
-    const selectedTime = common_vendor.ref("week");
+    const selectedTime = common_vendor.ref(2);
     const selectedCategory = common_vendor.ref("health");
     const rankingList = common_vendor.ref([]);
     const changeTime = (time) => {
@@ -21,13 +21,25 @@ const _sfc_main = {
     };
     const fetchData = async () => {
       const params = {
-        time: selectedTime.value,
+        status: selectedTime.value,
         category: selectedCategory.value
       };
-      const response = await services_ranking.fetchRankingData(params);
-      rankingList.value = response.data;
+      if (selectedCategory.value === "health") {
+        const response = await api_ranking.getCardRankings(params);
+        console.log("返回的数据", response);
+        rankingList.value = response;
+      } else if (selectedCategory.value === "sport") {
+        const res = await getSportRankings(params);
+        console.log("返回的数据", res);
+        rankingList.value = res;
+      } else {
+        common_vendor.index.showToast({
+          title: "请求数据失败",
+          icon: "error"
+        });
+      }
     };
-    common_vendor.onMounted(() => {
+    common_vendor.onShow(() => {
       fetchData();
     });
     const getMedal = (index) => {
@@ -50,9 +62,9 @@ const _sfc_main = {
       if (index === 0)
         return "first-place";
       if (index === 1)
-        return "second-place";
+        return " third-place";
       if (index === 2)
-        return "third-place";
+        return "second-place";
       return "";
     };
     return (_ctx, _cache) => {
@@ -63,12 +75,12 @@ const _sfc_main = {
           showBack: "true",
           isFixed: false
         }),
-        b: selectedTime.value === "day" ? 1 : "",
-        c: common_vendor.o(($event) => changeTime("day")),
-        d: selectedTime.value === "week" ? 1 : "",
-        e: common_vendor.o(($event) => changeTime("week")),
-        f: selectedTime.value === "month" ? 1 : "",
-        g: common_vendor.o(($event) => changeTime("month")),
+        b: selectedTime.value === 1 ? 1 : "",
+        c: common_vendor.o(($event) => changeTime(1)),
+        d: selectedTime.value === 2 ? 1 : "",
+        e: common_vendor.o(($event) => changeTime(2)),
+        f: selectedTime.value === 3 ? 1 : "",
+        g: common_vendor.o(($event) => changeTime(3)),
         h: selectedCategory.value === "health" ? 1 : "",
         i: common_vendor.o(($event) => changeCategory("health")),
         j: selectedCategory.value === "sport" ? 1 : "",
@@ -84,12 +96,17 @@ const _sfc_main = {
             d: getMedal(index)
           } : {}, {
             e: getAvatar(index),
-            f: common_vendor.t(item.name),
-            g: common_vendor.t(item.score),
-            h: index,
-            i: common_vendor.n(getBackgroundClass(index))
+            f: common_vendor.t(item.username)
+          }, selectedCategory.value === "health" ? {
+            g: common_vendor.t(item.score)
+          } : {
+            h: common_vendor.t(item.stepCounts)
+          }, {
+            i: index,
+            j: common_vendor.n(getBackgroundClass(index))
           });
-        })
+        }),
+        m: selectedCategory.value === "health"
       };
     };
   }

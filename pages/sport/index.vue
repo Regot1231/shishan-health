@@ -16,7 +16,7 @@
 			</view>
 			<view class="data-item">
 				<text class="data-value">{{ distance }}</text>
-				<text class="data-label">步行距离</text>
+				<text class="data-label">步行距离/米</text>
 			</view>
 		</view>
 
@@ -57,7 +57,7 @@
 	const goButtonClass = ref('go-button'); // 初始按钮样式
 	const totalDuration = ref(0); // 总运动时长（秒）
 	const score = ref(0); // 最终得分
-	const runningRecords = ref([]);  	//收集的数据结构
+	const runningRecords = ref([]); //收集的数据结构
 
 	let scheme1Count = 0; // 方案1得分次数
 	let scheme2Count = 0; // 方案2得分次数
@@ -93,24 +93,34 @@
 	// 获取用户地理位置
 	const getUserLocation = () => {
 		debugInfo.value += '\n开始获取用户定位权限';
+		console.log(debugInfo.value);
+
 		uni.getSetting({
 			success(res) {
 				if (!res.authSetting['scope.userLocation']) {
 					debugInfo.value += '\n未授权定位权限，申请授权中';
+					console.log(debugInfo.value);
+
 					uni.authorize({
 						scope: 'scope.userLocation',
 						success() {
 							debugInfo.value += '\n授权成功，开始获取位置';
+							console.log(debugInfo.value);
+
 							fetchLocation();
 						},
 						fail() {
 							debugInfo.value += '\n授权失败，提示用户前往设置开启权限';
+							console.log(debugInfo.value);
+
 							uni.showModal({
 								title: '授权失败',
 								content: '请前往设置中开启地理位置权限',
 								success(modalRes) {
 									if (modalRes.confirm) {
 										debugInfo.value += '\n用户同意前往设置';
+										console.log(debugInfo.value);
+
 										uni.openSetting();
 									}
 								}
@@ -119,11 +129,15 @@
 					});
 				} else {
 					debugInfo.value += '\n已授权定位权限，开始获取位置';
+					console.log(debugInfo.value);
+
 					fetchLocation();
 				}
 			},
 			fail(err) {
 				debugInfo.value += `\n获取用户设置失败: ${JSON.stringify(err)}`;
+				console.log(debugInfo.value);
+
 			}
 		});
 	};
@@ -134,6 +148,8 @@
 			type: 'gcj02',
 			success(locRes) {
 				debugInfo.value += `\n当前位置获取成功: 经度: ${locRes.longitude}, 纬度: ${locRes.latitude}`;
+				console.log(debugInfo.value);
+
 				latitude.value = locRes.latitude;
 				longitude.value = locRes.longitude;
 				markers.value = [{
@@ -154,6 +170,8 @@
 			},
 			fail(err) {
 				debugInfo.value += `\n获取当前位置失败: ${JSON.stringify(err)}`;
+				console.log(debugInfo.value);
+
 			}
 		});
 	};
@@ -163,6 +181,8 @@
 		goButtonText.value = '结束';
 		goButtonClass.value = 'stop-button';
 		debugInfo.value += '\n开始跑步';
+		console.log(debugInfo.value);
+
 		startTime = Date.now();
 		if (startLocation) {
 			distance.value = 0; // 初始化距离为0
@@ -172,10 +192,14 @@
 		uni.startLocationUpdate({
 			success() {
 				debugInfo.value += '\n位置更新已开启';
+				console.log(debugInfo.value);
+
 				// 监听位置变化
 				watchId = uni.onLocationChange((locRes) => {
 					debugInfo.value +=
 						`\n位置变化: 经度: ${locRes.longitude}, 纬度: ${locRes.latitude}, 速度: ${locRes.speed}`;
+					console.log(debugInfo.value);
+
 					const newLocation = {
 						latitude: locRes.latitude,
 						longitude: locRes.longitude
@@ -205,11 +229,15 @@
 						// 如果速度不在范围内，暂停计时
 						isCounting = false;
 						debugInfo.value += `\n速度不在规定范围内，暂停计时`;
+						console.log(debugInfo.value);
+
 					}
 				});
 			},
 			fail(err) {
 				debugInfo.value += `\n开启位置更新失败: ${JSON.stringify(err)}`;
+				console.log(debugInfo.value);
+
 			}
 		});
 
@@ -219,6 +247,8 @@
 	// 停止跑步
 	const stopRunning = () => {
 		debugInfo.value += '\n停止跑步';
+		console.log(debugInfo.value);
+
 		goButtonText.value = 'GO';
 		goButtonClass.value = 'go-button';
 
@@ -229,9 +259,13 @@
 		uni.stopLocationUpdate({
 			success() {
 				debugInfo.value += '\n位置更新已停止';
+				console.log(debugInfo.value);
+
 			},
 			fail(err) {
 				debugInfo.value += `\n停止位置更新失败: ${JSON.stringify(err)}`;
+				console.log(debugInfo.value);
+
 			}
 		});
 
@@ -249,53 +283,55 @@
 		formattedTime.value = '00:00:00';
 		totalDuration.value = 0;
 	};
-		// 计算得分
-		const calculateScore = () => {
-			const minutes = Math.floor(totalDuration.value / 60);
-			let earnedScore = 0;
-		
-			if (combinedCount < 3) {
-				if (minutes >= 15 && scheme2Count < 3) {
-					scheme2Count += 1;
-					combinedCount += 1;
-					earnedScore = 3; // 方案2得3分
-				}
-		
-				if (minutes >= 10 && combinedCount < 3 && scheme1Count < 3) {
-					let scheme1Score = 1; // 第一个10分钟得1分
-		
-					if (minutes >= 20) {
-						scheme1Score += 3; // 第二个10分钟得3分
-						if (minutes > 20) {
-							const additional10Min = Math.floor((minutes - 20) / 10);
-							scheme1Score += additional10Min * 3; // 之后的每10分钟得3分
-						}
-					}
-		
-					scheme1Count += 1;
-					combinedCount += 1;
-					earnedScore = scheme1Score;
-				}
+	// 计算得分
+	const calculateScore = () => {
+		const minutes = Math.floor(totalDuration.value / 60);
+		let earnedScore = 0;
+
+		if (combinedCount < 3) {
+			if (minutes >= 15 && scheme2Count < 3) {
+				scheme2Count += 1;
+				combinedCount += 1;
+				earnedScore = 3; // 方案2得3分
 			}
-		
-			score.value = earnedScore;
-		
-			// 保存记录
-			const newRecord = {
-				date: new Date().toLocaleDateString(), // 当前日期
-				time: formattedTime.value,
-				distance: distance.value,
-				points: earnedScore,
-				scheme: earnedScore === 3 ? 2 : 1, // 根据得分判断使用的方案
-				totalPoints: score.value, // 当天总积分
-				totalCount: combinedCount ,// 当天总次数
-			};
-		
-			runningRecords.value.push(newRecord);
-			uni.setStorageSync("runningRecords", runningRecords.value)  //把运动数据存起来
-		
-			console.log(`总运动时间: ${formattedTime.value}, 方案1得分次数: ${scheme1Count}, 方案2得分次数: ${scheme2Count}, 得分: ${score.value}`);
+
+			if (minutes >= 10 && combinedCount < 3 && scheme1Count < 3) {
+				let scheme1Score = 1; // 第一个10分钟得1分
+
+				if (minutes >= 20) {
+					scheme1Score += 3; // 第二个10分钟得3分
+					if (minutes > 20) {
+						const additional10Min = Math.floor((minutes - 20) / 10);
+						scheme1Score += additional10Min * 3; // 之后的每10分钟得3分
+					}
+				}
+
+				scheme1Count += 1;
+				combinedCount += 1;
+				earnedScore = scheme1Score;
+			}
+		}
+
+		score.value = earnedScore;
+
+		// 保存记录
+		const newRecord = {
+			date: formatDateTime(new Date()), // 当前日期和时间格式化
+			time: formattedTime.value,
+			distance: distance.value,
+			points: earnedScore,
+			scheme: earnedScore === 3 ? 2 : 1, // 根据得分判断使用的方案
+			totalPoints: score.value, // 当天总积分
+			totalCount: combinedCount, // 当天总次数
 		};
+
+		runningRecords.value.push(newRecord);
+		uni.setStorageSync("runningRecords", runningRecords.value) //把运动数据存起来
+
+		console.log(
+			`总运动时间: ${formattedTime.value}, 方案1得分次数: ${scheme1Count}, 方案2得分次数: ${scheme2Count}, 得分: ${score.value}`
+		);
+	};
 
 	// 更新计时器
 	const updateTime = () => {
@@ -330,13 +366,30 @@
 		const secs = seconds % 60;
 		return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 	};
+	// 格式化日期
+	const formatDateTime = (date) => {
+		const year = date.getFullYear();
+		const month = date.getMonth() + 1; // 月份从0开始，所以需要加1
+		const day = date.getDate();
+		const hours = date.getHours();
+		const minutes = date.getMinutes();
 
+		// 将月份、日期、小时和分钟格式化为两位数
+		const formattedMonth = month < 10 ? '0' + month : month;
+		const formattedDay = day < 10 ? '0' + day : day;
+		const formattedHours = hours < 10 ? '0' + hours : hours;
+		const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+		return `${year}年${formattedMonth}月${formattedDay}日 ${formattedHours}:${formattedMinutes}`;
+	};
 
 	// 查看运动记录
 	const viewHistory = () => {
 		debugInfo.value += '\n查看运动记录';
+		console.log(debugInfo.value);
+
 		// 模拟获取后端记录
-      uni.navigateTo({
+		uni.navigateTo({
 			url: `/pages/sport/runningRecords/index`
 		});
 	};

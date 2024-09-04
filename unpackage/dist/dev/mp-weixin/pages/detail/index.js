@@ -19,12 +19,35 @@ const _sfc_main = {
     const handleBack = () => {
       common_vendor.index.navigateBack();
     };
+    const commentText = common_vendor.ref("");
+    const article = common_vendor.ref({});
+    const options = common_vendor.ref({});
+    const commentTotal = common_vendor.ref();
+    const comments = common_vendor.ref([]);
+    const updateUserInfo = async (rows) => {
+      for (const [index, row] of rows.entries()) {
+        const respond = await api_user.getOtherUser(row.userId);
+        if (respond.code === 200) {
+          comments.value[index].user = respond.user.nickName || "微信用户";
+          comments.value[index].avatar = respond.user.avatar || "/static/image/wx_default_avatar.png";
+        } else {
+          common_vendor.index.showToast({
+            title: respond.msg || "请求失败",
+            icon: "none"
+          });
+        }
+      }
+    };
     const handleLike = async (id) => {
       console.log("开始点赞了！");
-      const data = { id, status: 0 };
+      const data = {
+        id,
+        status: 0
+      };
       console.log("开始点赞了！", data);
       const res = await api_article.postLike(data);
       if (res.code === 200) {
+        sendGetArticleDetail(id);
         common_vendor.index.showToast({
           title: "点赞成功",
           icon: "success"
@@ -36,26 +59,24 @@ const _sfc_main = {
         });
       }
     };
-    const commentText = common_vendor.ref("");
-    const article = common_vendor.ref({});
-    const options = common_vendor.ref({});
-    const commentTotal = common_vendor.ref();
-    const comments = common_vendor.ref([]);
-    const updateUserInfo = async (rows) => {
-      for (const [index, row] of rows.entries()) {
-        const respond = await api_user.getOtherUser(row.userId);
-        if (respond.code === 200) {
-          comments.value[index].user = respond.user.userName;
-        } else {
-          common_vendor.index.showToast({
-            title: respond.msg || "请求失败",
-            icon: "none"
-          });
-        }
+    const handlePostView = async (id) => {
+      const res = await api_article.postView(id);
+      if (res.code === 200) {
+        sendGetArticleDetail(id);
+        common_vendor.index.showToast({
+          title: "浏览成功",
+          icon: "success"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "浏览失败",
+          icon: "none"
+        });
       }
     };
-    const sendComment = async () => {
+    const sendComment = async (id) => {
       if (commentText.value.trim() === "") {
+        sendGetArticleDetail(id);
         common_vendor.index.showToast({
           title: "评论不能为空",
           icon: "none"
@@ -84,8 +105,8 @@ const _sfc_main = {
             date: row.createTime || "",
             content: row.content || "",
             likes: row.like || 0,
-            avatar: "/static/image/detail/healthy-hand.png",
-            user: "???",
+            avatar: "/static/image/wx_default_avatar.png",
+            user: "微信用户",
             commentId: row.commentId,
             replies: row.replies,
             articleId: row.articleId
@@ -110,8 +131,8 @@ const _sfc_main = {
             date: row.createTime || "",
             content: row.content || "",
             likes: row.like || 0,
-            avatar: "/static/image/detail/healthy-hand.png",
-            user: "???",
+            avatar: "/static/image/wx_default_avatar.png",
+            user: "微信用户",
             commentId: row.commentId,
             replies: row.replies,
             articleId: row.articleId
@@ -125,23 +146,14 @@ const _sfc_main = {
         });
       }
     };
-    common_vendor.onMounted(async () => {
-    });
-    common_vendor.onLoad(async (options2) => {
-      const {
-        id
-      } = options2;
-      options2.value = {
-        id
-      };
-      const articleId = options2.value.id;
-      console.log("传过来的id", articleId);
-      commentLikeLists(articleId);
-      const res = await api_article.getArticleDetail(articleId);
+    const sendGetArticleDetail = async (id) => {
+      const res = await api_article.getArticleDetail(id);
       if (res.code === 200) {
         article.value = res.data;
         console.log(article.value.viewCount);
-        const data = { id: article.value.viewCount };
+        const data = {
+          id: article.value.viewCount
+        };
         api_article.postView(data);
         const respond = await api_user.getOtherUser(res.data.author);
         if (respond.code === 200) {
@@ -158,6 +170,23 @@ const _sfc_main = {
           icon: "none"
         });
       }
+    };
+    common_vendor.onLoad(async (options2) => {
+      const {
+        id
+      } = options2;
+      options2.value = {
+        id
+      };
+      sendGetArticleDetail(options2.value.id);
+      const articleId = options2.value.id;
+      console.log("传过来的id", articleId);
+      commentLikeLists(articleId);
+      handlePostView(articleId);
+    });
+    common_vendor.onShow(() => {
+      commentLikeLists(options.value.id);
+      handlePostView(options.value.id);
     });
     return (_ctx, _cache) => {
       return {
@@ -181,7 +210,7 @@ const _sfc_main = {
             })
           };
         }),
-        g: common_vendor.o(sendComment),
+        g: common_vendor.o(($event) => sendComment(article.value.articleId)),
         h: commentText.value,
         i: common_vendor.o(($event) => commentText.value = $event.detail.value),
         j: common_vendor.p({

@@ -1,0 +1,16 @@
+
+.weui-cell.data-v-25b4db4f {
+		text-align: center;
+}
+.weui-input.data-v-25b4db4f {
+		margin-top: 20px;
+}
+.submit-button.data-v-25b4db4f {
+		margin-top: 50px;
+		background-color: #55B89A;
+		color: #ffffff;
+		border: none;
+		border-radius: 20px;
+		cursor: pointer;
+}
+
